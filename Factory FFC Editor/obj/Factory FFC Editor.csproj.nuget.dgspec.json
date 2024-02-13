@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BHY\\EngineeringTools\\Factory FFC Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {}
+    "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BHY\\EngineeringTools\\Factory FFC Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {
+    "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BHY\\EngineeringTools\\Factory FFC Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+        "projectUniqueName": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
         "projectName": "Factory FFC Editor",
-        "projectPath": "C:\\Users\\BHY\\EngineeringTools\\Factory FFC Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+        "projectPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
         "packagesPath": "C:\\Users\\BHY\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BHY\\EngineeringTools\\Factory FFC Editor\\Factory FFC Editor\\obj\\",
+        "outputPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
