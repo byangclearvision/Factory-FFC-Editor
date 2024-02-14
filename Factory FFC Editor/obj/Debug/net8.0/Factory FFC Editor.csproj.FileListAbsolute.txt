@@ -41,3 +41,8 @@ c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\ne
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.pdb
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.genruntimeconfig.cache
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\ref\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\System.Drawing.Common.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.csproj.AssemblyReference.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory .B2FDC58D.Up2Date
