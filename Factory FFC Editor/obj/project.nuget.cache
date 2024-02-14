@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ImSex+my6jU3oy+Akh1+7FWTSnSJDW+wciAMt9wvSdmCEjpChKGVIBTvmVQD+JSloLEGap+m0Tf9SOAjEZLxxg==",
+  "dgSpecHash": "khG8hFQX7PBhlJ303p3H2mKa7D3dsx9VFwCWiAIGqh4djYZtF2V9Q5bFgHpJ29UFsKg4HhW7HOHs6/+0hM5C9g==",
   "success": true,
   "projectFilePath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\BHY\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\BHY\\.nuget\\packages\\system.drawing.common\\8.0.2\\system.drawing.common.8.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

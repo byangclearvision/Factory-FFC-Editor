@@ -26,3 +26,18 @@ c:\Users\BHY\EngineeringTools\Factory FFC Editor\Factory FFC Editor\obj\Debug\ne
 c:\Users\BHY\EngineeringTools\Factory FFC Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.pdb
 c:\Users\BHY\EngineeringTools\Factory FFC Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.genruntimeconfig.cache
 c:\Users\BHY\EngineeringTools\Factory FFC Editor\Factory FFC Editor\obj\Debug\net8.0\ref\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.AssemblyInfoInputs.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.AssemblyInfo.cs
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.csproj.CoreCompileInputs.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.sourcelink.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\refint\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.pdb
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.exe
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.deps.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.runtimeconfig.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Factory FFC Editor.pdb
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.genruntimeconfig.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\ref\Factory FFC Editor.dll

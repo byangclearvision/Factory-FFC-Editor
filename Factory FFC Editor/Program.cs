@@ -1,10 +1,12 @@
 ﻿using System;
+using Microsoft.Win32.SystemEvents;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Drawing;
 
 //using DALSA.SaperaLT.SapClassBasic;
 //using DALSA.SaperaLT.Examples.NET.Utils;
@@ -13,7 +15,6 @@ namespace FactoryFFCEditor
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             Console.WriteLine("This program edits the factory FFC");
@@ -22,21 +23,21 @@ namespace FactoryFFCEditor
 
             int inputChek = 1;
             string inputChekstr;
-            string FFCfile;
+            string ffcFile = "null";
             // Stores the location of the modifier .tif and the input .tif factory FFC
-            string[] tifloc = {"n","n"};
+            string[] tifloc = new string [2];
 
             while (inputChek == 1)
             {
                 Console.WriteLine("Input the name of the factory FFC including the file extension (.tif):");
-                FFCfile = Console.ReadLine();
-                /*while (!FFCfile.Substring(FFCfile.Length - 4).Equals(".tif"))
+                ffcFile = Console.ReadLine();
+                        /*while (!ffcFile.Substring(ffcFile.Length - 4).Equals(".tif"))
                 {
                     Console.WriteLine("Input the name of the factory FFC including the file extension (.tif):");
-                    FFCfile = Console.ReadLine();
+                    ffcFile = Console.ReadLine();
                 }*/
 
-                Console.WriteLine("\nConfirm the file name is: {0}", FFCfile);
+                Console.WriteLine("\nConfirm the file name is: {0}", ffcFile);
                 Console.WriteLine("press 'y' if correct, 'n' to re-enter file name");
                 inputChekstr = Console.ReadLine();
 
@@ -53,9 +54,11 @@ namespace FactoryFFCEditor
             }
             //Console.WriteLine("Exit Loop");
 
-            tifloc[0] =  "ffc_scaler.tif";
+            tifloc[0] = "ffc_scaler.tif";
+            tifloc[1] = ffcFile;
             Console.WriteLine(tifloc[0]);
+            Console.WriteLine(tifloc[1]);
         }
 
     }
-}
+}f
