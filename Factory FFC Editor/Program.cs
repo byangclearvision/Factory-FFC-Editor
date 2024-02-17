@@ -9,6 +9,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Tiff;
+using SixLabors.ImageSharp.PixelFormats;
+using System.Runtime.CompilerServices;
+
+
 
 //using DALSA.SaperaLT.SapClassBasic;
 //using DALSA.SaperaLT.Examples.NET.Utils;
@@ -103,7 +109,7 @@ namespace FactoryFFCEditor
                     // Check if the image is 16bit
                     PixelFormat pixelFormat = factoryTif.PixelFormat;
                     Console.WriteLine(pixelFormat);
-                    if (Image.GetPixelFormatSize(pixelFormat) != 32)
+                    if (System.Drawing.Image.GetPixelFormatSize(pixelFormat) != 32)
                     {
                         Console.WriteLine("Error: Incorrect BPP. Must be a 16 bit image");
                         inputChek = 1;
@@ -116,37 +122,180 @@ namespace FactoryFFCEditor
                     Console.WriteLine("pressed no");
                 }
             }
-            //Bitmap modTif = new Bitmap(tifloc[0]);
 
-            /// Bitmaps are inputted, and can now be edited
-            /// factoryTif
-            /// modTif
-            /// outTif
+            /// The input image has been checked for data type, format, and size, now to edit it and create the output file
             
-            // Create output tif
-            Bitmap outTif = new Bitmap(modTif.Width, modTif.Height, PixelFormat.Format32bppArgb);
+            // Call the function to convert TIF file to array
+            byte[] modTempArray = TiffToArray(tifloc[0],1);
+            byte[] factoryTempArray = TiffToArray(tifloc[1],1);
+            byte[] factoryTopRow = TiffToArray(tifloc[1],0);
+            int[,] outputTifArray = new int[2, modTempArray.Length];
+            int[] modTifArray = new int[modTempArray.Length/4];
+            int[] factoryTifArray = new int[factoryTempArray.Length/4];
+            
 
-            // Read factoryTif numeric values
-            string[] numericValues = File.ReadAllText(tifloc[1]).Split(',');
-            Console.WriteLine(numericValues.Length);
-
-            // Copy top row of modTif to outTif
-            for (int x = 0; x < modTif.Width; x++)
+            
+            //save only the R values of modTif and factoryTif to get the greyscale pixel values
+            for (int i = 0; i < modTempArray.Length; i += 4)
             {
-                outTif.SetPixel(x,0,modTif.GetPixel(x,0));
+                modTifArray[i / 4] = modTempArray[i];
+            } 
+            for (int i = 0; i < factoryTempArray.Length; i += 4)
+            {
+                factoryTifArray[i / 4] = factoryTempArray[i];
             }
 
-            // Multiply bottom row on modTif by corresponding factoryTif
-            for (int x = 0; x < modTif.Width; x++)
+            Console.WriteLine(factoryTifArray.Length);
+            Console.WriteLine(factoryTifArray[factoryTifArray.Length - 1]);
+            Console.WriteLine(factoryTopRow.Length);
+
+            // Create output array
+            /*for (int i = 0; i < factoryTempArray.Length; i++)
             {
-                ushort pixelvalue = (ushort)(modTif.GetPixel(x,1).R * ushort.Parse(numericValues[x]));
-                Color pixelcolor = Color.FromArgb(pixelvalue, pixelvalue, pixelvalue);
-                outTif.SetPixel(x,1,pixelcolor);
+                outputTifArray[0,i] = 
+            }*/
+
+            foreach (var i in factoryTifArray)
+            {
+                int index = i * 4;
+                outputTifArray[0,index] = factoryTopRow[i];
+                outputTifArray[1,index] = factoryTifArray[i];
+                outputTifArray[1,index+1] = factoryTifArray[i];
+                outputTifArray[1,index+2] = factoryTifArray[i];
+                outputTifArray[1,index+3] = 255;
+                
             }
 
-            // Save outTif
-            outTif.Save(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor", ImageFormat.Tiff);
-            Console.WriteLine("Output file saved");
+            //SaveCSV(factoryTifArray,"out.csv");
+            ArrayToTif(outputTifArray,"CorrectedUserFlatField.tif");
+            ArrayToCsv(outputTifArray,"tif.csv");
+
+        }
+
+        // A function that takes a 2xn int array and a file name as parameters
+        // and converts the array to a grayscale image and saves it as a tif file
+        public static void ArrayToTif(int[,] array, string fileName)
+        {
+            // Get the dimensions of the array
+            int rows = array.GetLength(0); // 2
+            int cols = array.GetLength(1); // n
+
+            // Create a new image with the same size as the array
+            using (var image = new Image<L8>(cols, rows))
+            {
+                // Loop through the array and set the pixel values
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < cols; j++)
+                    {
+                        // Get the int value from the array and clamp it to [0, 255]
+                        int value = array[i, j];
+                        value = Math.Max(0, Math.Min(255, value));
+
+                        // Create a grayscale pixel with the value
+                        var pixel = new L8((byte)value);
+
+                        // Set the pixel at the corresponding position in the image
+                        image[j, i] = pixel;
+                    }
+                }
+
+                // Save the image as a tif file with the given file name
+                image.Save(fileName, new TiffEncoder());
+                Console.WriteLine($"TIFF file has been saved as {fileName}");
+            }
+        }
+        
+        
+        public static void SaveCSV(int[] array, string filename)
+        {
+            // Create a StringBuilder to store the csv content
+            StringBuilder csv = new StringBuilder();
+
+            // Loop through the array and append each byte to the csv, separated by commas
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+      
+                csv.Append(array[i]);
+                if (i < array.Length - 1)
+                {
+                    csv.Append(",");
+                }
+            
+                csv.AppendLine();
+            }
+
+            // Save the csv content to a file
+            File.WriteAllText(filename, csv.ToString());
+
+            // Print a message to confirm the operation
+            Console.WriteLine($"The array of bytes has been saved as {filename}");
+        }
+
+        // Define a method to convert a tiff file to an array of bytes
+        public static byte[] TiffToArray(string filePath, int line)
+        {
+            // Load the tiff image from the file path
+            using var image =  SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
+
+            // Get the width and height of the image
+            int width = image.Width;
+
+            // Create an array of bytes with the same size as the image
+            byte[] array = new byte[width * 4];
+
+            // Loop through the pixels of the image and copy their values to the array
+
+            for (int x = 0; x < width; x++)
+            {
+                
+                // Get the pixel at the current position
+                var pixel = image[x, line];
+                int index = x * 4;
+                // Copy the pixel values to the array in RGBA order
+                array[index] = pixel.R;
+                array[index+1] = pixel.G;
+                array[index+2] = pixel.B;
+                array[index+3] = pixel.A;
+            }
+
+
+            // Return the array of bytes
+            return array;
+        }
+
+        // A function that takes a 2xn int array and a file name as parameters
+        // and converts the array to a comma-separated values (csv) file and saves it
+        public static void ArrayToCsv(int[,] array, string fileName)
+        {
+            // Get the dimensions of the array
+            int rows = array.GetLength(0); // 2
+            int cols = array.GetLength(1); // n
+
+            // Create a new string builder to store the csv content
+            var sb = new StringBuilder();
+
+            // Loop through the array and append the values to the string builder
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    // Get the int value from the array
+                    int value = array[i, j];
+
+                    // Append the value to the string builder, followed by a comma
+                    sb.Append(value);
+                    sb.Append(",");
+                }
+
+                // Remove the last comma and add a new line
+                sb.Remove(sb.Length - 1, 1);
+                sb.AppendLine();
+            }
+
+            // Save the string builder content as a csv file with the given file name
+            File.WriteAllText(fileName, sb.ToString());
+            Console.WriteLine($"The array has been saved as {fileName}");
         }
     }    
 }

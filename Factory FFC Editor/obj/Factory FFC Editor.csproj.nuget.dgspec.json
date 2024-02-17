@@ -48,6 +48,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[8.0.2, )"

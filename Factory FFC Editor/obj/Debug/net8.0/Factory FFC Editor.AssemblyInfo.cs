@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Factory FFC Editor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c81e2b162712fa9479318214f117c48dec1f657")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9339ffbe4f20801008a05888d2c19fa9bfee96ff")]
 [assembly: System.Reflection.AssemblyProductAttribute("Factory FFC Editor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Factory FFC Editor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
