@@ -103,53 +103,52 @@ namespace FactoryFFCEditor
                 }
             }
 
-
-            /// Create the function to multiple the input TIFF by
-            /*double a = 0.0027;
-            double b = 253.5;
-            double c = 43.6;
-            double xscale = Convert.ToDouble(factoryTif.Width) / 512.0;
-            double yscale = 61;
-            double x;
-            double function = a * Math.Pow(x / scale - b, 2.0) + c;*/
-
             /// The input image has been checked for data type, format, and size, now to edit it and create the output file
             
             // Call the function to convert TIF file to array
             byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
             byte[] factoryTopRow = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,0);
-            int[,] outputTifArray = new int[2, factoryTempArray.Length];
-            int[] modTifArray = new int[factoryTempArray.Length/4];
+            int[] factoryTopRowInt = new int[factoryTopRow.Length];
+            foreach (int i in factoryTopRow)
+            {
+                factoryTopRowInt[i] = factoryTopRow[i];
+            }
+            SaveCSV(factoryTopRowInt,"factorytopRow.csv");
+            int[] factoryTempArrayInt = new int[factoryTempArray.Length];
+            foreach (int i in factoryTempArray)
+            {
+                Console.WriteLine(factoryTempArray[i]);
+                factoryTempArrayInt[i] = factoryTempArray[i];
+            }
+            SaveCSV(factoryTempArrayInt,"factorybottomRow.csv");
+
+            int[,] outputTifArray = new int[2, factoryTempArray.Length/4];
             int[] factoryTifArray = new int[factoryTempArray.Length/4];
-            
-            
-            
+
             //save only the R values of factoryTif to get the greyscale pixel values
             for (int i = 0; i < factoryTempArray.Length; i += 4)
             {
                 factoryTifArray[i / 4] = factoryTempArray[i];
             }
 
-            Console.WriteLine("factoryTifArray Length" + factoryTifArray.Length);
-            Console.WriteLine(factoryTifArray[factoryTifArray.Length - 1]);
-            Console.WriteLine(factoryTopRow.Length);
-
-            // Create output array
-            /*for (int i = 0; i < factoryTempArray.Length; i++)
-            {
-                outputTifArray[0,i] = 
-            }*/
-
+            double xscale = 1 / (factoryTifArray.Length / 512.0);
+            double multiplied;
+            double round;
+            
+            //Create output array and save multiplied values to output array
             for (int i = 0; i < factoryTifArray.Length; i++)
             {
-                int index = i * 4;
-                outputTifArray[0,index] = factoryTopRow[i];
-                outputTifArray[1,index] = factoryTifArray[i];
-                outputTifArray[1,index+1] = factoryTifArray[i];
-                outputTifArray[1,index+2] = factoryTifArray[i];
-                outputTifArray[1,index+3] = 255;
-                Console.WriteLine(index);
+                multiplied = factoryTifArray[i] * multiplierFunction(i,xscale);
+                round = Math.Round(multiplied, 0, MidpointRounding.AwayFromZero);  
+                //Console.WriteLine(round); 
+                outputTifArray[1,i] = Convert.ToInt32(round);   
+                outputTifArray[0,i] = factoryTopRow[i / 4];         
             }
+
+            Console.WriteLine("factoryTempArray Length: " + factoryTempArray.Length);
+            Console.WriteLine("factoryTifArray Length: " + factoryTifArray.Length);
+            //Console.WriteLine(factoryTifArray[factoryTifArray.Length - 1]);
+            Console.WriteLine("factoryTopRow Length: " + factoryTopRow.Length);
 
             //SaveCSV(factoryTifArray,"out.csv");
             ArrayToTif(outputTifArray,"CorrectedUserFlatField.tif");
@@ -227,6 +226,7 @@ namespace FactoryFFCEditor
 
             // Get the width and height of the image
             int width = image.Width;
+            Console.WriteLine("Image width: " + width);
 
             // Create an array of bytes with the same size as the image
             byte[] array = new byte[width * 4];
@@ -283,6 +283,22 @@ namespace FactoryFFCEditor
             // Save the string builder content as a csv file with the given file name
             File.WriteAllText(fileName, sb.ToString());
             Console.WriteLine($"The array has been saved as {fileName}");
+        }
+
+        public static double multiplierFunction(int x, double xscale)
+        {
+            double a = -1.95831826665063 * Math.Pow(10,-16);
+            double b = 3.01385181237523 * Math.Pow(10,-13);
+            double c = -1.75874993836724 * Math.Pow(10,-10);
+            double d = 4.82556824079856 * Math.Pow(10,-8);
+            double e = -5.70155060917491 * Math.Pow(10,-6);
+            double f = 0.000054080877889916;
+            double g = 0.034784144;
+            double yscale = 61.0;
+
+            double function = yscale * (a * Math.Pow(xscale * x,6) + b * Math.Pow(xscale * x,5) + c * Math.Pow(xscale * x,4) + d * Math.Pow(xscale * x,3)
+                                + e * Math.Pow(xscale * x,2) + f * xscale * x + g);
+            return function;
         }
     }    
 }
