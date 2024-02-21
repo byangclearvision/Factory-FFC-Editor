@@ -13,6 +13,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Runtime.CompilerServices;
+using System.Reflection;
 
 
 
@@ -28,15 +29,13 @@ namespace FactoryFFCEditor
             Console.WriteLine("This program edits the factory FFC");
             Console.WriteLine("--------------------------------------------------------------------------------\n");
 
-
             int inputChek = 1;
             string inputChekstr;
             string ffcFile = "null";
-            Bitmap modTif = default(Bitmap); 
             Bitmap factoryTif = default(Bitmap);
             
-            // Stores the location of the modifier .tif and the input .tif factory FFC
-            string[] tifloc = new string [2];
+            // Stores the location of the input .tif factory FFC
+            string tifloc;
             
             Console.WriteLine("Ensure that factory FFC TIFF file is saved in the correct directory");
             Console.WriteLine("Enter the name of the factory FFC including the file extension (.tif):");
@@ -62,29 +61,16 @@ namespace FactoryFFCEditor
                     inputChek = 0;
                     Console.WriteLine("pressed yes");
 
-                    // Location of modifier TIFF
-                    tifloc[0] = @"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\ffc_modifier.tif";
                     // Location of input factory FFC TIFF
-                    tifloc[1] = @"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile;
+                    tifloc = @"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile;
 
-                    Console.WriteLine(tifloc[0]);
-                    Console.WriteLine(tifloc[1]);
+                    Console.WriteLine(tifloc);
 
-                    // Load modifier .tif                 
-                    try
-                    {
-                        // Create bitmap with modifier tif file saved at location: tifloc[0]
-                        modTif = new Bitmap(tifloc[0]);
-                    }
-                    catch (ArgumentException e)
-                    {
-                        Console.WriteLine($"Error: {e.Message}. File location/name may be incorrect. Please enter menu 1 and enter file correct directory");
-                    }
                     // Load factory FFC .tif                   
                     try
                     {
-                        // Create bitmap with factory FFC tif file saved at location: tifloc[1]
-                        factoryTif = new Bitmap(tifloc[1]);
+                        // Create bitmap with factory FFC tif file saved at location: tifloc
+                        factoryTif = new Bitmap(tifloc);
                     }
                     catch (ArgumentException e)
                     {
@@ -98,12 +84,6 @@ namespace FactoryFFCEditor
                     if (factoryTif.Height != 2)
                     {
                         Console.WriteLine("Error: Incorrect dimensions. Input tiff must have a height of 2 pixels");
-                        inputChek = 1;
-                    }
-                    // Check if length of factoryTif is equal to lenght of modTif
-                    if (modTif.Width != factoryTif.Width)
-                    {
-                        Console.WriteLine("Error: Incorrect dimensions. tif dimensions must be equal");
                         inputChek = 1;
                     }
                     // Check if the image is 16bit
@@ -123,29 +103,34 @@ namespace FactoryFFCEditor
                 }
             }
 
+
+            /// Create the function to multiple the input TIFF by
+            /*double a = 0.0027;
+            double b = 253.5;
+            double c = 43.6;
+            double xscale = Convert.ToDouble(factoryTif.Width) / 512.0;
+            double yscale = 61;
+            double x;
+            double function = a * Math.Pow(x / scale - b, 2.0) + c;*/
+
             /// The input image has been checked for data type, format, and size, now to edit it and create the output file
             
             // Call the function to convert TIF file to array
-            byte[] modTempArray = TiffToArray(tifloc[0],1);
-            byte[] factoryTempArray = TiffToArray(tifloc[1],1);
-            byte[] factoryTopRow = TiffToArray(tifloc[1],0);
-            int[,] outputTifArray = new int[2, modTempArray.Length];
-            int[] modTifArray = new int[modTempArray.Length/4];
+            byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
+            byte[] factoryTopRow = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,0);
+            int[,] outputTifArray = new int[2, factoryTempArray.Length];
+            int[] modTifArray = new int[factoryTempArray.Length/4];
             int[] factoryTifArray = new int[factoryTempArray.Length/4];
             
-
             
-            //save only the R values of modTif and factoryTif to get the greyscale pixel values
-            for (int i = 0; i < modTempArray.Length; i += 4)
-            {
-                modTifArray[i / 4] = modTempArray[i];
-            } 
+            
+            //save only the R values of factoryTif to get the greyscale pixel values
             for (int i = 0; i < factoryTempArray.Length; i += 4)
             {
                 factoryTifArray[i / 4] = factoryTempArray[i];
             }
 
-            Console.WriteLine(factoryTifArray.Length);
+            Console.WriteLine("factoryTifArray Length" + factoryTifArray.Length);
             Console.WriteLine(factoryTifArray[factoryTifArray.Length - 1]);
             Console.WriteLine(factoryTopRow.Length);
 
@@ -155,7 +140,7 @@ namespace FactoryFFCEditor
                 outputTifArray[0,i] = 
             }*/
 
-            foreach (var i in factoryTifArray)
+            for (int i = 0; i < factoryTifArray.Length; i++)
             {
                 int index = i * 4;
                 outputTifArray[0,index] = factoryTopRow[i];
@@ -163,7 +148,7 @@ namespace FactoryFFCEditor
                 outputTifArray[1,index+1] = factoryTifArray[i];
                 outputTifArray[1,index+2] = factoryTifArray[i];
                 outputTifArray[1,index+3] = 255;
-                
+                Console.WriteLine(index);
             }
 
             //SaveCSV(factoryTifArray,"out.csv");
@@ -181,7 +166,7 @@ namespace FactoryFFCEditor
             int cols = array.GetLength(1); // n
 
             // Create a new image with the same size as the array
-            using (var image = new Image<L8>(cols, rows))
+            using (var image = new Image<L16>(cols, rows))
             {
                 // Loop through the array and set the pixel values
                 for (int i = 0; i < rows; i++)
@@ -193,7 +178,7 @@ namespace FactoryFFCEditor
                         value = Math.Max(0, Math.Min(255, value));
 
                         // Create a grayscale pixel with the value
-                        var pixel = new L8((byte)value);
+                        var pixel = new L16((byte)value);
 
                         // Set the pixel at the corresponding position in the image
                         image[j, i] = pixel;
@@ -233,6 +218,8 @@ namespace FactoryFFCEditor
         }
 
         // Define a method to convert a tiff file to an array of bytes
+        /// Parameter: filePath sets the location of the input TIFF file
+        /// Parameter: line: 0 is the first line, 1 is the second line
         public static byte[] TiffToArray(string filePath, int line)
         {
             // Load the tiff image from the file path
