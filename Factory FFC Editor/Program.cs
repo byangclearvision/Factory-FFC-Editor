@@ -14,6 +14,8 @@ using SixLabors.ImageSharp.Formats.Tiff;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Runtime.CompilerServices;
 using System.Reflection;
+using Aspose.Imaging;
+using Aspose.Imaging.FileFormats.Tiff.FileManagement;
 
 
 
@@ -44,7 +46,7 @@ namespace FactoryFFCEditor
             while (inputChek == 1)
             {
                 ffcFile = Console.ReadLine();
-                        /*while (!ffcFile.Substring(ffcFile.Length - 4).Equals(".tif"))
+                /*while (!ffcFile.Substring(ffcFile.Length - 4).Equals(".tif"))
                 {
                     Console.WriteLine("Input the name of the factory FFC including the file extension (.tif):");
                     ffcFile = Console.ReadLine();
@@ -57,6 +59,8 @@ namespace FactoryFFCEditor
 
                 if (inputChekstr.Equals("y"))
                 {
+
+
                     // inputChek = 0 to exit the while loop
                     inputChek = 0;
                     Console.WriteLine("pressed yes");
@@ -83,15 +87,15 @@ namespace FactoryFFCEditor
                     // Check if factoryTif has the correct dimensions
                     if (factoryTif.Height != 2)
                     {
-                        Console.WriteLine("Error: Incorrect dimensions. Input tiff must have a height of 2 pixels");
+                        Console.WriteLine("Error: Incorrect dimensions. Input tiff must have a height of 2 pixels. Input image height: " + factoryTif.Height);
                         inputChek = 1;
                     }
                     // Check if the image is 16bit
-                    PixelFormat pixelFormat = factoryTif.PixelFormat;
+                    System.Drawing.Imaging.PixelFormat pixelFormat = factoryTif.PixelFormat;
                     Console.WriteLine(pixelFormat);
                     if (System.Drawing.Image.GetPixelFormatSize(pixelFormat) != 32)
                     {
-                        Console.WriteLine("Error: Incorrect BPP. Must be a 16 bit image");
+                        Console.WriteLine("Error: Incorrect BPP. Must be a 16 bit image. Entered Pixel Format: " + pixelFormat);
                         inputChek = 1;
                     }
                 }
@@ -104,9 +108,12 @@ namespace FactoryFFCEditor
             }
 
             /// The input image has been checked for data type, format, and size, now to edit it and create the output file
-            
+            int[,] testout = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile);
+            ArrayToCsv(testout, "testout.csv");
+
             // Call the function to convert TIF file to array
-            byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
+            //byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
+            /*byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
             byte[] factoryTopRow = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,0);
             int[] factoryTopRowInt = new int[factoryTopRow.Length];
             foreach (int i in factoryTopRow)
@@ -115,11 +122,7 @@ namespace FactoryFFCEditor
             }
             SaveCSV(factoryTopRowInt,"factorytopRow.csv");
             int[] factoryTempArrayInt = new int[factoryTempArray.Length];
-            foreach (int i in factoryTempArray)
-            {
-                Console.WriteLine(factoryTempArray[i]);
-                factoryTempArrayInt[i] = factoryTempArray[i];
-            }
+
             SaveCSV(factoryTempArrayInt,"factorybottomRow.csv");
 
             int[,] outputTifArray = new int[2, factoryTempArray.Length/4];
@@ -134,7 +137,7 @@ namespace FactoryFFCEditor
             double xscale = 1 / (factoryTifArray.Length / 512.0);
             double multiplied;
             double round;
-            
+
             //Create output array and save multiplied values to output array
             for (int i = 0; i < factoryTifArray.Length; i++)
             {
@@ -145,15 +148,62 @@ namespace FactoryFFCEditor
                 outputTifArray[0,i] = factoryTopRow[i / 4];         
             }
 
-            Console.WriteLine("factoryTempArray Length: " + factoryTempArray.Length);
-            Console.WriteLine("factoryTifArray Length: " + factoryTifArray.Length);
-            //Console.WriteLine(factoryTifArray[factoryTifArray.Length - 1]);
-            Console.WriteLine("factoryTopRow Length: " + factoryTopRow.Length);
-
             //SaveCSV(factoryTifArray,"out.csv");
             ArrayToTif(outputTifArray,"CorrectedUserFlatField.tif");
-            ArrayToCsv(outputTifArray,"tif.csv");
+            ArrayToCsv(outputTifArray,"tif.csv");*/
+        }
 
+        public static int[,] TiffToArray(string fileName)
+        {
+            // Check the file extension and the pixel format of the image
+            string extension = Path.GetExtension(fileName);
+            if (extension != ".tif")
+            {
+                // Throw an exception or display an error message
+                throw new ArgumentException("The file is not a TIFF file.");
+                // MessageBox.Show("The file is not a TIFF file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // return null;
+            }
+            System.Drawing.Image imageToCheck = System.Drawing.Image.FromFile(fileName, true);
+            int bitsPerPixel = System.Drawing.Image.GetPixelFormatSize(imageToCheck.PixelFormat);
+            if (bitsPerPixel != 32)
+            {
+                // Throw an exception or display an error message
+                throw new ArgumentException("The file is not a 32-bit ARGB TIFF file.");
+                // MessageBox.Show("The file is not a 16-bit greyscale TIFF file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // return null;
+            }
+
+            // Load the TIFF file into a Bitmap object
+            Bitmap image = new Bitmap(fileName);
+
+            // Get the pixel values from the Bitmap object
+            BitmapData imageData = image.LockBits(new System.Drawing.Rectangle(0, 0, image.Width, image.Height), ImageLockMode.ReadOnly, image.PixelFormat);
+            Console.WriteLine("check: " + System.Drawing.Image.GetPixelFormatSize(image.PixelFormat));
+            Console.Write("Image stride: " + imageData.Stride);
+            int bytesPerPixel = System.Drawing.Image.GetPixelFormatSize(image.PixelFormat) / 4;
+            int byteCount = imageData.Stride * image.Height;
+            byte[] pixelValues = new byte[byteCount];
+            Marshal.Copy(imageData.Scan0, pixelValues, 0, byteCount);
+            image.UnlockBits(imageData);
+
+            // Create a 2D array of int values from the byte array
+            int[,] pixelData = new int[image.Height, image.Width];
+            for (int i = 0; i < image.Height; i++)
+                for (int j = 0; j < image.Width; j++)
+                {
+                    // Get the index of the byte array for the current pixel
+                    int index = i * imageData.Stride + j * bytesPerPixel;
+                    // Convert four bytes into an int value
+                    //Console.WriteLine("Index: " + index);
+                    ushort value = BitConverter.ToUInt16(pixelValues, index);
+                    //Console.WriteLine("Value: " + value);
+                    // Assign the value to the 2D array
+                    pixelData[i, j] = value;
+                }
+
+            // Return the 2D array
+            return pixelData;
         }
 
         // A function that takes a 2xn int array and a file name as parameters
@@ -190,65 +240,19 @@ namespace FactoryFFCEditor
             }
         }
         
-        
         public static void SaveCSV(int[] array, string filename)
         {
-            // Create a StringBuilder to store the csv content
-            StringBuilder csv = new StringBuilder();
+            // Convert the array to a comma-separated string
+            string csv = string.Join(",", array);
 
-            // Loop through the array and append each byte to the csv, separated by commas
-            for (int i = 0; i < array.GetLength(0); i++)
-            {
-      
-                csv.Append(array[i]);
-                if (i < array.Length - 1)
-                {
-                    csv.Append(",");
-                }
-            
-                csv.AppendLine();
-            }
+            // Specify the file name and path to save the csv
+            string filePath = Path.Combine(Environment.CurrentDirectory, filename);
 
             // Save the csv content to a file
-            File.WriteAllText(filename, csv.ToString());
+            File.WriteAllText(filename, csv);
 
             // Print a message to confirm the operation
-            Console.WriteLine($"The array of bytes has been saved as {filename}");
-        }
-
-        // Define a method to convert a tiff file to an array of bytes
-        /// Parameter: filePath sets the location of the input TIFF file
-        /// Parameter: line: 0 is the first line, 1 is the second line
-        public static byte[] TiffToArray(string filePath, int line)
-        {
-            // Load the tiff image from the file path
-            using var image =  SixLabors.ImageSharp.Image.Load<Rgba32>(filePath);
-
-            // Get the width and height of the image
-            int width = image.Width;
-            Console.WriteLine("Image width: " + width);
-
-            // Create an array of bytes with the same size as the image
-            byte[] array = new byte[width * 4];
-
-            // Loop through the pixels of the image and copy their values to the array
-
-            for (int x = 0; x < width; x++)
-            {
-                
-                // Get the pixel at the current position
-                var pixel = image[x, line];
-                int index = x * 4;
-                // Copy the pixel values to the array in RGBA order
-                array[index] = pixel.R;
-                array[index+1] = pixel.G;
-                array[index+2] = pixel.B;
-                array[index+3] = pixel.A;
-            }
-
-
-            // Return the array of bytes
-            return array;
+            Console.WriteLine($"The array has been saved as {filename}");
         }
 
         // A function that takes a 2xn int array and a file name as parameters
@@ -302,5 +306,3 @@ namespace FactoryFFCEditor
         }
     }    
 }
-
-

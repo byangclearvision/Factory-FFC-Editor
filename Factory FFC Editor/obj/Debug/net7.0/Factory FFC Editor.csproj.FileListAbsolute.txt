@@ -1,0 +1,23 @@
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Factory FFC Editor.exe
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Factory FFC Editor.deps.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Factory FFC Editor.runtimeconfig.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Factory FFC Editor.pdb
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Aspose.Imaging.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\Newtonsoft.Json.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\SixLabors.ImageSharp.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\System.Drawing.Common.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.csproj.AssemblyReference.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.AssemblyInfoInputs.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.AssemblyInfo.cs
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.csproj.CoreCompileInputs.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.sourcelink.json
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory .B2FDC58D.Up2Date
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\refint\Factory FFC Editor.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.pdb
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\Factory FFC Editor.genruntimeconfig.cache
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net7.0\ref\Factory FFC Editor.dll

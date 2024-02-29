@@ -47,3 +47,5 @@ c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\ne
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory FFC Editor.csproj.AssemblyReference.cache
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\obj\Debug\net8.0\Factory .B2FDC58D.Up2Date
 c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Aspose.Imaging.dll
+c:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\bin\Debug\net8.0\Newtonsoft.Json.dll

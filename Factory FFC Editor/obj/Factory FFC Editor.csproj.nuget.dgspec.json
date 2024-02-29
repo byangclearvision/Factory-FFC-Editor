@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {}
+    "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {}
   },
   "projects": {
-    "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {
+    "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+        "projectUniqueName": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
         "projectName": "Factory FFC Editor",
-        "projectPath": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+        "projectPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
         "packagesPath": "C:\\Users\\BHY\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\obj\\",
+        "outputPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -48,6 +48,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Aspose.Imaging": {
+              "target": "Package",
+              "version": "[24.2.0, )"
+            },
             "SixLabors.ImageSharp": {
               "target": "Package",
               "version": "[3.1.2, )"

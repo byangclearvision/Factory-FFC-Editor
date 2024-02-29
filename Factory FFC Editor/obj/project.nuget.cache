@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "mWJjzlymcD1PIeVD/+IlFQ+ocFRpJoUaBIwN4zYEqhUwcLWDgFZjHLOiVb+UbY1YYKGpG8irV0mOWj/0DefXfw==",
+  "dgSpecHash": "gauyLh0G9U1eeO5nqx8MDPCEM8qAoIYUSNdEk63JqScIELEMGWDaf8ryjr98mnya/KXLdzTUcgxpK/XDfHaBMA==",
   "success": true,
-  "projectFilePath": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+  "projectFilePath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\BHY\\.nuget\\packages\\aspose.imaging\\24.2.0\\aspose.imaging.24.2.0.nupkg.sha512",
     "C:\\Users\\BHY\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\BHY\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\BHY\\.nuget\\packages\\sixlabors.imagesharp\\3.1.2\\sixlabors.imagesharp.3.1.2.nupkg.sha512",
-    "C:\\Users\\BHY\\.nuget\\packages\\system.drawing.common\\8.0.2\\system.drawing.common.8.0.2.nupkg.sha512"
+    "C:\\Users\\BHY\\.nuget\\packages\\system.drawing.common\\8.0.2\\system.drawing.common.8.0.2.nupkg.sha512",
+    "C:\\Users\\BHY\\.nuget\\packages\\system.text.encoding.codepages\\7.0.0\\system.text.encoding.codepages.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
