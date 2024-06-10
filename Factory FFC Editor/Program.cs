@@ -17,6 +17,8 @@ using System.Reflection;
 using Aspose.Imaging;
 using Aspose.Imaging.FileFormats.Tiff.FileManagement;
 
+using DALSA.SaperaLT.SapClassBasic;
+
 
 
 //using DALSA.SaperaLT.SapClassBasic;
@@ -113,9 +115,9 @@ namespace FactoryFFCEditor
 
             // Call the function to convert TIF file to array
             //byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
-            /*byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,1);
-            byte[] factoryTopRow = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile,0);
-            int[] factoryTopRowInt = new int[factoryTopRow.Length];
+            byte[] factoryTempArray = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile);
+            byte[] factoryTopRow = TiffToArray(@"C:\Users\BHY\EngineeringTools\Factory_FFC_Editor\Factory FFC Editor\" + ffcFile);
+            
             foreach (int i in factoryTopRow)
             {
                 factoryTopRowInt[i] = factoryTopRow[i];
@@ -150,7 +152,7 @@ namespace FactoryFFCEditor
 
             //SaveCSV(factoryTifArray,"out.csv");
             ArrayToTif(outputTifArray,"CorrectedUserFlatField.tif");
-            ArrayToCsv(outputTifArray,"tif.csv");*/
+            ArrayToCsv(outputTifArray,"tif.csv");
         }
 
         public static int[,] TiffToArray(string fileName)
@@ -185,7 +187,7 @@ namespace FactoryFFCEditor
             int byteCount = imageData.Stride * image.Height;
             byte[] pixelValues = new byte[byteCount];
             Marshal.Copy(imageData.Scan0, pixelValues, 0, byteCount);
-            image.UnlockBits(imageData);
+            image.UnlockBits(imageData); 
 
             // Create a 2D array of int values from the byte array
             int[,] pixelData = new int[image.Height, image.Width];
@@ -205,41 +207,29 @@ namespace FactoryFFCEditor
             // Return the 2D array
             return pixelData;
         }
-
-        // A function that takes a 2xn int array and a file name as parameters
-        // and converts the array to a grayscale image and saves it as a tif file
-        public static void ArrayToTif(int[,] array, string fileName)
+        
+        public static void ArrayToTif(int[,] pixelValues, string filePath)
         {
-            // Get the dimensions of the array
-            int rows = array.GetLength(0); // 2
-            int cols = array.GetLength(1); // n
+            int width = pixelValues.GetLength(1);
+            //Console.WriteLine("Width: " + width);
+            int height = pixelValues.GetLength(0);
+            //Console.WriteLine("Height: " + height);
 
-            // Create a new image with the same size as the array
-            using (var image = new Image<L16>(cols, rows))
+            using (Image<L16> image = new Image<L16>(width, height))
             {
-                // Loop through the array and set the pixel values
-                for (int i = 0; i < rows; i++)
+                for (int y = 0; y < width; y++)
                 {
-                    for (int j = 0; j < cols; j++)
+                    for (int x = 0; x < height; x++)
                     {
-                        // Get the int value from the array and clamp it to [0, 255]
-                        int value = array[i, j];
-                        value = Math.Max(0, Math.Min(255, value));
-
-                        // Create a grayscale pixel with the value
-                        var pixel = new L16((byte)value);
-
-                        // Set the pixel at the corresponding position in the image
-                        image[j, i] = pixel;
+                        ushort pixelValue = (ushort)pixelValues[x, y];
+                        image[y, x] = new L16(pixelValue);
                     }
                 }
-
-                // Save the image as a tif file with the given file name
-                image.Save(fileName, new TiffEncoder());
-                Console.WriteLine($"TIFF file has been saved as {fileName}");
+                image.Save(filePath, new SixLabors.ImageSharp.Formats.Tiff.TiffEncoder());
+                Console.WriteLine("File has been saved as: " + filePath);
             }
         }
-        
+
         public static void SaveCSV(int[] array, string filename)
         {
             // Convert the array to a comma-separated string

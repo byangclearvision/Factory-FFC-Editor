@@ -312,11 +312,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+      "projectUniqueName": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
       "projectName": "Factory FFC Editor",
-      "projectPath": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
+      "projectPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\Factory FFC Editor.csproj",
       "packagesPath": "C:\\Users\\BHY\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\obj\\",
+      "outputPath": "C:\\Users\\BHY\\EngineeringTools\\Factory_FFC_Editor\\Factory FFC Editor\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -382,8 +382,40 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.206/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.2 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-5x7m-6737-26cr",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-65x7-c272-7g7r",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.2 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-g85r-6x2q-45w7",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
